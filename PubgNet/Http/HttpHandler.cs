@@ -18,7 +18,8 @@ namespace PubgNet.Http
     //
     // The accepted content type can be specified to use 'application/json'
     // but it is recommended to use 'application/vnd.api+json'.
-    // 
+    //
+    // TOOD: If requests are too large, consider controlling cache using HttpCacheControl
     public class HttpHandler
     {
         private readonly System.Net.Http.HttpClient m_Client;
@@ -33,7 +34,6 @@ namespace PubgNet.Http
             m_Client.BaseAddress = new Uri(base_url);
             m_Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth_key);
             m_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(content_type));
-
 #if DEBUG_HTTP_HANDLER
             Console.WriteLine($"Http Client Created: {DateTime.Now.ToString("hh:mm:ss")}\nBase Url: {m_Client.BaseAddress}\n{m_Client.DefaultRequestHeaders}");
 #endif

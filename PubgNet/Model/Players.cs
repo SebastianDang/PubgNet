@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PubgNet.Model.Players
 {
-    public class PlayerData
+    public class PlayersRoot
     {
         [JsonProperty("data")]
         public List<Player> Players { get; set; }
@@ -18,13 +18,13 @@ namespace PubgNet.Model.Players
         public string Id { get; set; }
 
         [JsonProperty("attributes")]
-        public Attributes Attributes { get; set; }
+        public PlayerAttributes Attributes { get; set; }
 
         [JsonProperty("relationships")]
-        public Relationships Relationships { get; set; }
+        public PlayerRelationships Relationships { get; set; }
     }
 
-    public class Attributes
+    public class PlayerAttributes
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -33,7 +33,7 @@ namespace PubgNet.Model.Players
         public string ShardId { get; set; }
 
         [JsonProperty("stats")]
-        public Stats Stats { get; set; }
+        public PlayerStats Stats { get; set; }
 
         [JsonProperty("createdAt")]
         public string CreatedAt { get; set; }
@@ -48,23 +48,32 @@ namespace PubgNet.Model.Players
         public string TitleId { get; set; }
     }
 
-    public class Stats
+    public class PlayerStats
     {
         // null
     }
 
-    public class Relationships
+    public class PlayerRelationships
     {
+        [JsonProperty("assets")]
+        public PlayerAssets Assets { get; set;}
+
         [JsonProperty("matches")]
-        public Matches Matches { get; set; }
+        public PlayerMatches Matches { get; set; }
     }
 
-    public class Assets
+    public class PlayerAssets
+    {
+        [JsonProperty("data")]
+        public List<PlayerAssetsData> Data { get; set; }
+    }
+
+    public class PlayerAssetsData
     {
         // null
     }
 
-    public class Matches
+    public class PlayerMatches
     {
         [JsonProperty("data")]
         public List<MatchData> Data { get; set; }
