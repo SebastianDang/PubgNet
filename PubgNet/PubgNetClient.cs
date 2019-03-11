@@ -19,13 +19,13 @@ namespace PubgNet
         // Checks if the api key exists, then constructs a http handler to manage requests.
         public PubgNetClient(string api_key)
         {
-            if (string.IsNullOrEmpty(api_key)) throw new ArgumentException("Client : Api Key cannot be empty.");
+            if (string.IsNullOrEmpty(api_key)) throw new ArgumentException("Client: Api Key cannot be empty.");
             m_HttpHandler = new HttpHandler("https://api.pubg.com/", api_key, "application/vnd.api+json");
         }
 
         // Gets a list of players by username(s).
         // According to the api, this can only get data for up to 6 players.
-        public async Task<PubgNet.Model.Players.PlayersRoot> GetPlayersByUsernames(string[] playerNames)
+        public async Task<PubgNet.Model.PlayersRoot> GetPlayersByUsernames(string[] playerNames)
         {
 #if DEBUG_CLIENT
             if (playerNames.Length >= 6)
@@ -37,13 +37,13 @@ namespace PubgNet
             string input_playerNames = string.Join(",", playerNames);
             string request = $"shards/{m_Platform}/players?filter[playerNames]={input_playerNames}";
             string response = await m_HttpHandler.RequestAsync(request);
-            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.Players.PlayersRoot>(response);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.PlayersRoot>(response);
             return json_object;
         }
 
         // Gets a list of players by id(s).
         // According to the api, this can only get data for up to 6 players.
-        public async Task<PubgNet.Model.Players.PlayersRoot> GetPlayersByIds(string[] playerIds)
+        public async Task<PubgNet.Model.PlayersRoot> GetPlayersByIds(string[] playerIds)
         {
 #if DEBUG_CLIENT
             if (playerIds.Length >= 6)
@@ -55,26 +55,36 @@ namespace PubgNet
             string input_playerIds = string.Join(",", playerIds);
             string request = $"shards/{m_Platform}/players?filter[playerIds]={input_playerIds}";
             string response = await m_HttpHandler.RequestAsync(request);
-            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.Players.PlayersRoot>(response);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.PlayersRoot>(response);
             return json_object;
         }
 
         // Gets a list of all seasons.
-        public async Task<PubgNet.Model.Seasons.SeasonsRoot> GetSeasons()
+        public async Task<PubgNet.Model.SeasonsRoot> GetSeasons()
         {
             string request = $"shards/{m_Platform}/seasons";
             string response = await m_HttpHandler.RequestAsync(request);
-            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.Seasons.SeasonsRoot>(response);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.SeasonsRoot>(response);
             return json_object;
         }
 
-        // Get seasons stats for a specific player and seasons.
-        public async Task<PubgNet.Model.SeasonStats.SeasonStatsRoot> GetSeasonStatsForPlayer(string accountId, string seasonId)
+        // Get seasons stats for a specific player and season.
+        public async Task<PubgNet.Model.StatsRoot> GetSeasonStatsForPlayer(string accountId, string seasonId)
         {
             string request = $"shards/{m_Platform}/players/{accountId}/seasons/{seasonId}";
             string response = await m_HttpHandler.RequestAsync(request);
-            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.SeasonStats.SeasonStatsRoot>(response);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.StatsRoot>(response);
             return json_object;
         }
+
+        // Get lifetime stats for a specific player and season.
+        public async Task<PubgNet.Model.StatsRoot> GetLifetimeStatsForPlayer(string accountId)
+        {
+            string request = $"shards/{m_Platform}/players/{accountId}/seasons/lifetime";
+            string response = await m_HttpHandler.RequestAsync(request);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.StatsRoot>(response);
+            return json_object;
+        }
+
     }
 }

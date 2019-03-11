@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PubgNet.Model.Seasons
+namespace PubgNet.Model
 {
     public class SeasonsRoot
     {
         [JsonProperty("data")]
-        public List<Season> Seasons { get; set; }
+        public List<SeasonObject> Seasons { get; set; }
     }
 
-    public class Season
+    public class SeasonObject
     {
         [JsonProperty("type")]
         public string Type { get; set; }

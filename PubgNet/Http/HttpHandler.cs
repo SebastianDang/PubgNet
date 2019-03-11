@@ -23,6 +23,7 @@ namespace PubgNet.Http
     public class HttpHandler
     {
         private readonly System.Net.Http.HttpClient m_Client;
+        private bool m_HandleExceptions = true;
 
         // Create a new http client with base url, authentication key, and content type.
         public HttpHandler(string base_url, string auth_key, string content_type)
@@ -38,6 +39,9 @@ namespace PubgNet.Http
             Console.WriteLine($"Http Client Created: {DateTime.Now.ToString("hh:mm:ss")}\nBase Url: {m_Client.BaseAddress}\n{m_Client.DefaultRequestHeaders}");
 #endif
         }
+
+        // Set whether to handle exceptions here or throw. By defalt this is true.
+        public void SetHandleExceptions(bool val) { m_HandleExceptions = val; }
 
         // Simple request using the base address and endpoint
         public async Task<string> RequestAsync(string endpoint)
@@ -56,16 +60,30 @@ namespace PubgNet.Http
                 }
                 else
                 {
-                    throw new Exception($"Http Request Failed: {endpoint}");
+                    throw GetRequestException(http_response, endpoint);
                 }
             }
             catch (Exception e)
             {
 #if DEBUG_HTTP_HANDLER
-                Console.WriteLine(string.Format("Http Exception: {0}", e));
+                Console.WriteLine(e);
 #endif
+                if (!m_HandleExceptions) throw;
             }
             return ""; // Blank
+        }
+
+        // Check status code
+        private Exception GetRequestException(HttpResponseMessage response, string endpoint)
+        {
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.Unauthorized: return new Exception($"Http Error (401): {m_Client.DefaultRequestHeaders.Authorization}");
+                case System.Net.HttpStatusCode.NotFound: return new Exception($"Http Error (404): {endpoint}");
+                case System.Net.HttpStatusCode.UnsupportedMediaType: return new Exception($"Http Error (415): {m_Client.DefaultRequestHeaders.Accept}");
+                case (System.Net.HttpStatusCode)429: return new Exception($"Http Error (429): Too many Requests");
+                default: return new Exception($"Http Request Failed: {endpoint}");
+            }
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PubgNet.Model.Players
+namespace PubgNet.Model
 {
     public class PlayersRoot
     {
         [JsonProperty("data")]
-        public List<Player> Players { get; set; }
+        public List<PlayerObject> Players { get; set; }
     }
 
-    public class Player
+    public class PlayerObject
     {
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -76,10 +76,10 @@ namespace PubgNet.Model.Players
     public class PlayerMatches
     {
         [JsonProperty("data")]
-        public List<MatchData> Data { get; set; }
+        public List<PlayerMatchData> Data { get; set; }
     }
 
-    public class MatchData
+    public class PlayerMatchData
     {
         [JsonProperty("type")]
         public string Type { get; set; }

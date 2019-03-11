@@ -1,54 +1,54 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PubgNet.Model.SeasonStats
+namespace PubgNet.Model
 {
-    public class SeasonStatsRoot
+    public class StatsRoot
     {
         [JsonProperty("data")]
-        public SeasonStats SeasonStats { get; set; }
+        public StatsObject Stats { get; set; }
     }
 
-    public class SeasonStats
+    public class StatsObject
     {
         [JsonProperty("type")]
         public string Type { get; set; }
 
         [JsonProperty("attributes")]
-        public SeasonStatsAttributes Attributes { get; set; }
+        public StatsAttributes Attributes { get; set; }
 
         [JsonProperty("relationships")]
-        public SeasonStatsRelationships Relationships { get; set; }
+        public StatsRelationships Relationships { get; set; }
     }
 
-    public class SeasonStatsAttributes
+    public class StatsAttributes
     {
         [JsonProperty("gameModeStats")]
-        public GameModeStats GameModeStats { get; set; }
+        public GameModeObject GameModeStats { get; set; }
     }
 
-    public class GameModeStats
+    public class GameModeObject
     {
-        [JsonProperty("duo")]
-        public GameModeStatsObject Duo { get; set; }
-
-        [JsonProperty("duo-fpp")]
-        public GameModeStatsObject DuoFpp { get; set; }
-
         [JsonProperty("solo")]
-        public GameModeStatsObject Solo { get; set; }
+        public GameModeData Solo { get; set; }
 
         [JsonProperty("solo-fpp")]
-        public GameModeStatsObject SoloFpp { get; set; }
+        public GameModeData SoloFpp { get; set; }
+
+        [JsonProperty("duo")]
+        public GameModeData Duo { get; set; }
+
+        [JsonProperty("duo-fpp")]
+        public GameModeData DuoFpp { get; set; }
 
         [JsonProperty("squad")]
-        public GameModeStatsObject Squad { get; set; }
+        public GameModeData Squad { get; set; }
 
         [JsonProperty("squad-fpp")]
-        public GameModeStatsObject SquadFpp { get; set; }
+        public GameModeData SquadFpp { get; set; }
     }
 
-    public class GameModeStatsObject
+    public class GameModeData
     {
         [JsonProperty("assists")]
         public int Assists { get; set; }
@@ -162,37 +162,37 @@ namespace PubgNet.Model.SeasonStats
         public int Wins { get; set; }
     }
 
-    public class SeasonStatsRelationships
+    public class StatsRelationships
     {
         [JsonProperty("player")]
-        public SeasonStatsPlayer Player { get; set; }
+        public StatsPlayer Player { get; set; }
 
         [JsonProperty("matchesSolo")]
-        public SeasonStatsMatches MatchesSolo { get; set; }
+        public StatsMatches MatchesSolo { get; set; }
 
         [JsonProperty("matchesSoloFpp")]
-        public SeasonStatsMatches MatchesSoloFpp { get; set; }
+        public StatsMatches MatchesSoloFpp { get; set; }
 
         [JsonProperty("matchesDuo")]
-        public SeasonStatsMatches MatchesDuo { get; set; }
+        public StatsMatches MatchesDuo { get; set; }
 
         [JsonProperty("matchesDuoFpp")]
-        public SeasonStatsMatches MatchesDuoFpp { get; set; }
+        public StatsMatches MatchesDuoFpp { get; set; }
 
         [JsonProperty("matchesSquad")]
-        public SeasonStatsMatches MatchesSquad { get; set; }
+        public StatsMatches MatchesSquad { get; set; }
 
         [JsonProperty("matchesSquadFpp")]
-        public SeasonStatsMatches MatchesSquadFpp { get; set; }
+        public StatsMatches MatchesSquadFpp { get; set; }
     }
 
-    public class SeasonStatsPlayer
+    public class StatsPlayer
     {
         [JsonProperty("data")]
-        public SeasonStatsPlayerData Data { get; set; }
+        public StatsPlayerData Data { get; set; }
     }
 
-    public class SeasonStatsPlayerData
+    public class StatsPlayerData
     {
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -201,13 +201,13 @@ namespace PubgNet.Model.SeasonStats
         public string Id { get; set; }
     }
 
-    public class SeasonStatsMatches
+    public class StatsMatches
     {
         [JsonProperty("data")]
-        public List<SeasonStatsMatch> Matches { get; set; }
+        public List<StatsMatch> Matches { get; set; }
     }
 
-    public class SeasonStatsMatch
+    public class StatsMatch
     {
         [JsonProperty("type")]
         public string Type { get; set; }
