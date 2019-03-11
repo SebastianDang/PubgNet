@@ -11,7 +11,7 @@ namespace PubgNet.Model
         [JsonProperty]
         public List<MatchIncluded> Included { get; set; }
         [JsonProperty]
-        public MatchLinks Links { get; set; }
+        public Links Links { get; set; }
     }
 
     public class MatchData
@@ -25,7 +25,7 @@ namespace PubgNet.Model
         [JsonProperty]
         public MatchRelationships Relationships { get; set; }
         [JsonProperty]
-        public MatchLinks Links { get; set; }
+        public Links Links { get; set; }
     }
 
     public class MatchAttributes
@@ -86,14 +86,6 @@ namespace PubgNet.Model
         public string Type { get; set; }
         [JsonProperty]
         public string Id { get; set; }
-    }
-
-    public class MatchLinks
-    {
-        [JsonProperty]
-        public string Self { get; set; }
-        [JsonProperty]
-        public string Schema { get; set; }
     }
 
     public class MatchIncluded

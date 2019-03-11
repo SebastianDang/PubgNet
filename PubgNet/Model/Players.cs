@@ -9,7 +9,7 @@ namespace PubgNet.Model
         [JsonProperty]
         public List<PlayerData> Data { get; set; }
         [JsonProperty]
-        public PlayerLinks Links { get; set; }
+        public Links Links { get; set; }
     }
 
     public class PlayerData
@@ -68,11 +68,5 @@ namespace PubgNet.Model
         public string Type { get; set; }
         [JsonProperty]
         public string Id { get; set; }
-    }
-
-    public class PlayerLinks
-    {
-        [JsonProperty]
-        public string Self { get; set; }
     }
 }

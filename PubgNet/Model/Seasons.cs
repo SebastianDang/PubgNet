@@ -8,7 +8,7 @@ namespace PubgNet.Model
         [JsonProperty]
         public List<SeasonData> Data { get; set; }
         [JsonProperty]
-        public SeasonLinks Links { get; set; }
+        public Links Links { get; set; }
     }
 
     public class SeasonData
@@ -27,11 +27,5 @@ namespace PubgNet.Model
         public bool IsCurrentSeason { get; set; }
         [JsonProperty]
         public bool IsOffSeason { get; set; }
-    }
-
-    public class SeasonLinks
-    {
-        [JsonProperty]
-        public string Self { get; set; }
     }
 }
