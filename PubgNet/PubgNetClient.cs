@@ -86,5 +86,13 @@ namespace PubgNet
             return json_object;
         }
 
+        // Get a single match's data.
+        public async Task<PubgNet.Model.MatchRoot> GetMatch(string id)
+        {
+            string request = $"shards/{m_Platform}/matches/{id}";
+            string response = await m_HttpHandler.RequestAsync(request);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.MatchRoot>(response);
+            return json_object;
+        }
     }
 }

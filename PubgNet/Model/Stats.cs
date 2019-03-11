@@ -5,214 +5,185 @@ namespace PubgNet.Model
 {
     public class StatsRoot
     {
-        [JsonProperty("data")]
-        public StatsObject Stats { get; set; }
+        [JsonProperty]
+        public StatsData Data { get; set; }
+        [JsonProperty]
+        public StatsLinks Links { get; set; }
     }
 
-    public class StatsObject
+    public class StatsData
     {
-        [JsonProperty("type")]
+        [JsonProperty]
         public string Type { get; set; }
-
-        [JsonProperty("attributes")]
+        [JsonProperty]
         public StatsAttributes Attributes { get; set; }
-
-        [JsonProperty("relationships")]
+        [JsonProperty]
         public StatsRelationships Relationships { get; set; }
     }
 
     public class StatsAttributes
     {
-        [JsonProperty("gameModeStats")]
-        public GameModeObject GameModeStats { get; set; }
+        [JsonProperty]
+    public GameModeStats GameModeStats { get; set; }
     }
 
-    public class GameModeObject
-    {
+    public class GameModeStats
+{
         [JsonProperty("solo")]
-        public GameModeData Solo { get; set; }
-
+        public GameModeStatsData Solo { get; set; }
         [JsonProperty("solo-fpp")]
-        public GameModeData SoloFpp { get; set; }
-
+        public GameModeStatsData SoloFpp { get; set; }
         [JsonProperty("duo")]
-        public GameModeData Duo { get; set; }
-
+        public GameModeStatsData Duo { get; set; }
         [JsonProperty("duo-fpp")]
-        public GameModeData DuoFpp { get; set; }
-
+        public GameModeStatsData DuoFpp { get; set; }
         [JsonProperty("squad")]
-        public GameModeData Squad { get; set; }
-
+        public GameModeStatsData Squad { get; set; }
         [JsonProperty("squad-fpp")]
-        public GameModeData SquadFpp { get; set; }
+        public GameModeStatsData SquadFpp { get; set; }
     }
 
-    public class GameModeData
+    public class GameModeStatsData
     {
-        [JsonProperty("assists")]
+        [JsonProperty]
         public int Assists { get; set; }
-
-        [JsonProperty("bestRankPoint")]
-        public float BestRankPoints { get; set; }
-
-        [JsonProperty("boosts")]
+        [JsonProperty]
+        public double BestRankPoint { get; set; }
+        [JsonProperty]
         public int Boosts { get; set; }
-
-        [JsonProperty("dBNOs")]
+        [JsonProperty]
         public int DBNOs { get; set; }
-
-        [JsonProperty("dailyKills")]
+        [JsonProperty]
         public int DailyKills { get; set; }
-
-        [JsonProperty("damageDealt")]
-        public float DamageDealt { get; set; }
-
-        [JsonProperty("days")]
-        public int Days { get; set; }
-
-        [JsonProperty("dailyWins")]
+        [JsonProperty]
         public int DailyWins { get; set; }
-
-        [JsonProperty("headshotKills")]
+        [JsonProperty]
+        public double DamageDealt { get; set; }
+        [JsonProperty]
+        public int Days { get; set; }
+        [JsonProperty]
         public int HeadshotKills { get; set; }
-
-        [JsonProperty("heals")]
+        [JsonProperty]
         public int Heals { get; set; }
-
-        [JsonProperty("killPoints")]
-        public float KillPoints { get; set; }
-
-        [JsonProperty("kills")]
+        [JsonProperty]
+        public int KillPoints { get; set; }
+        [JsonProperty]
         public int Kills { get; set; }
-
-        [JsonProperty("longestKill")]
-        public float LongestKill { get; set; }
-
-        [JsonProperty("longestTimeSurvived")]
-        public float LongestTimeSurvived { get; set; }
-
-        [JsonProperty("losses")]
+        [JsonProperty]
+        public double LongestKill { get; set; }
+        [JsonProperty]
+        public double LongestTimeSurvived { get; set; }
+        [JsonProperty]
         public int Losses { get; set; }
-
-        [JsonProperty("maxKillStreaks")]
+        [JsonProperty]
         public int MaxKillStreaks { get; set; }
-
-        [JsonProperty("mostSurvivalTime")]
-        public float MostSurvivalTime { get; set; }
-
-        [JsonProperty("RankPoints")]
-        public float RankPoints { get; set; }
-
-        [JsonProperty("RankPointsTitle")]
+        [JsonProperty]
+        public double MostSurvivalTime { get; set; }
+        [JsonProperty]
+        public double RankPoints { get; set; }
+        [JsonProperty]
         public string RankPointsTitle { get; set; }
-
-        [JsonProperty("revives")]
+        [JsonProperty]
         public int Revives { get; set; }
-
-        [JsonProperty("rideDistance")]
-        public float RideDistance { get; set; }
-
-        [JsonProperty("roadKills")]
+        [JsonProperty]
+        public double RideDistance { get; set; }
+        [JsonProperty]
         public int RoadKills { get; set; }
-
-        [JsonProperty("roundMostKills")]
+        [JsonProperty]
         public int RoundMostKills { get; set; }
-
-        [JsonProperty("roundsPlayed")]
+        [JsonProperty]
         public int RoundsPlayed { get; set; }
-
-        [JsonProperty("suicides")]
+        [JsonProperty]
         public int Suicides { get; set; }
-
-        [JsonProperty("swimDistance")]
-        public float SwimDistance { get; set; }
-
-        [JsonProperty("teamKills")]
+        [JsonProperty]
+        public double SwimDistance { get; set; }
+        [JsonProperty]
         public int TeamKills { get; set; }
-
-        [JsonProperty("timeSurvived")]
-        public float TimeSurvived { get; set; }
-
-        [JsonProperty("top10s")]
+        [JsonProperty]
+        public double TimeSurvived { get; set; }
+        [JsonProperty]
         public int Top10s { get; set; }
-
-        [JsonProperty("vehicleDestroys")]
+        [JsonProperty]
         public int VehicleDestroys { get; set; }
-
-        [JsonProperty("walkDistance")]
-        public float WalkDistance { get; set; }
-
-        [JsonProperty("weaponAcquired")]
-        public int WeaponAcquired { get; set; }
-
-        [JsonProperty("weeklyKills")]
+        [JsonProperty]
+        public double WalkDistance { get; set; }
+        [JsonProperty]
+        public int WeaponsAcquired { get; set; }
+        [JsonProperty]
         public int WeeklyKills { get; set; }
-
-        [JsonProperty("weeklyWins")]
+        [JsonProperty]
         public int WeeklyWins { get; set; }
-
-        [JsonProperty("winPoints")]
-        public float WinPoints { get; set; }
-
-        [JsonProperty("winRatio")]
-        public float WinRatio { get; set; }
-
-        [JsonProperty("wins")]
+        [JsonProperty]
+        public int WinPoints { get; set; }
+        [JsonProperty]
         public int Wins { get; set; }
     }
 
     public class StatsRelationships
     {
-        [JsonProperty("player")]
+        [JsonProperty]
         public StatsPlayer Player { get; set; }
-
-        [JsonProperty("matchesSolo")]
+        [JsonProperty]
+        public StatsSeason Season { get; set; }
+        [JsonProperty]
         public StatsMatches MatchesSolo { get; set; }
-
-        [JsonProperty("matchesSoloFpp")]
+        [JsonProperty]
         public StatsMatches MatchesSoloFpp { get; set; }
-
-        [JsonProperty("matchesDuo")]
+        [JsonProperty]
         public StatsMatches MatchesDuo { get; set; }
-
-        [JsonProperty("matchesDuoFpp")]
+        [JsonProperty]
         public StatsMatches MatchesDuoFpp { get; set; }
-
-        [JsonProperty("matchesSquad")]
+        [JsonProperty]
         public StatsMatches MatchesSquad { get; set; }
-
-        [JsonProperty("matchesSquadFpp")]
+        [JsonProperty]
         public StatsMatches MatchesSquadFpp { get; set; }
     }
 
     public class StatsPlayer
     {
-        [JsonProperty("data")]
+        [JsonProperty]
         public StatsPlayerData Data { get; set; }
     }
 
     public class StatsPlayerData
     {
-        [JsonProperty("type")]
+        [JsonProperty]
         public string Type { get; set; }
-
-        [JsonProperty("id")]
+        [JsonProperty]
         public string Id { get; set; }
     }
+
+    public class StatsSeason
+    {
+        [JsonProperty]
+        public StatsSeasonData Data { get; set; }
+    }
+
+    public class StatsSeasonData
+    {
+        [JsonProperty]
+        public string Type { get; set; }
+        [JsonProperty]
+        public string Id { get; set; }
+}
 
     public class StatsMatches
     {
-        [JsonProperty("data")]
-        public List<StatsMatch> Matches { get; set; }
+        [JsonProperty]
+        public List<StatsMatchData> Data { get; set; }
     }
 
-    public class StatsMatch
+    public class StatsMatchData
     {
-        [JsonProperty("type")]
+        [JsonProperty]
         public string Type { get; set; }
-
-        [JsonProperty("id")]
+        [JsonProperty]
         public string Id { get; set; }
+    }
+
+    public class StatsLinks
+    {
+        [JsonProperty]
+        public string Self { get; set; }
     }
 }

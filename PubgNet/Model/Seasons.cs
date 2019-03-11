@@ -5,28 +5,33 @@ namespace PubgNet.Model
 {
     public class SeasonsRoot
     {
-        [JsonProperty("data")]
-        public List<SeasonObject> Seasons { get; set; }
+        [JsonProperty]
+        public List<SeasonData> Data { get; set; }
+        [JsonProperty]
+        public SeasonLinks Links { get; set; }
     }
 
-    public class SeasonObject
+    public class SeasonData
     {
-        [JsonProperty("type")]
+        [JsonProperty]
         public string Type { get; set; }
-
-        [JsonProperty("id")]
+        [JsonProperty]
         public string Id { get; set; }
-
-        [JsonProperty("attributes")]
+        [JsonProperty]
         public SeasonAttributes Attributes { get; set; }
     }
 
     public class SeasonAttributes
     {
-        [JsonProperty("isCurrentSeason")]
+        [JsonProperty]
         public bool IsCurrentSeason { get; set; }
-
-        [JsonProperty("isOffSeason")]
+        [JsonProperty]
         public bool IsOffSeason { get; set; }
+    }
+
+    public class SeasonLinks
+    {
+        [JsonProperty]
+        public string Self { get; set; }
     }
 }

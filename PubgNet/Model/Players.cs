@@ -1,90 +1,78 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace PubgNet.Model
 {
     public class PlayersRoot
     {
-        [JsonProperty("data")]
-        public List<PlayerObject> Players { get; set; }
+        [JsonProperty]
+        public List<PlayerData> Data { get; set; }
+        [JsonProperty]
+        public PlayerLinks Links { get; set; }
     }
 
-    public class PlayerObject
+    public class PlayerData
     {
-        [JsonProperty("type")]
+        [JsonProperty]
         public string Type { get; set; }
-
-        [JsonProperty("id")]
+        [JsonProperty]
         public string Id { get; set; }
-
-        [JsonProperty("attributes")]
+        [JsonProperty]
         public PlayerAttributes Attributes { get; set; }
-
-        [JsonProperty("relationships")]
+        [JsonProperty]
         public PlayerRelationships Relationships { get; set; }
     }
 
     public class PlayerAttributes
     {
-        [JsonProperty("name")]
+        [JsonProperty]
         public string Name { get; set; }
-
-        [JsonProperty("shardId")]
+        [JsonProperty]
         public string ShardId { get; set; }
-
-        [JsonProperty("stats")]
-        public PlayerStats Stats { get; set; }
-
-        [JsonProperty("createdAt")]
-        public string CreatedAt { get; set; }
-
-        [JsonProperty("updatedAt")]
-        public string UpdatedAt { get; set; }
-
-        [JsonProperty("patchVersion")]
+        [JsonProperty]
+        public object Stats { get; set; }
+        [JsonProperty]
+        public DateTime CreatedAt { get; set; }
+        [JsonProperty]
+        public DateTime UpdatedAt { get; set; }
+        [JsonProperty]
         public string PatchVersion { get; set; }
-
-        [JsonProperty("titleId")]
+        [JsonProperty]
         public string TitleId { get; set; }
-    }
-
-    public class PlayerStats
-    {
-        // null
     }
 
     public class PlayerRelationships
     {
-        [JsonProperty("assets")]
+        [JsonProperty]
         public PlayerAssets Assets { get; set;}
-
-        [JsonProperty("matches")]
+        [JsonProperty]
         public PlayerMatches Matches { get; set; }
     }
 
     public class PlayerAssets
     {
-        [JsonProperty("data")]
-        public List<PlayerAssetsData> Data { get; set; }
-    }
-
-    public class PlayerAssetsData
-    {
-        // null
+        [JsonProperty]
+        public List<object> Data { get; set; }
     }
 
     public class PlayerMatches
     {
-        [JsonProperty("data")]
+        [JsonProperty]
         public List<PlayerMatchData> Data { get; set; }
     }
 
     public class PlayerMatchData
     {
-        [JsonProperty("type")]
+        [JsonProperty]
         public string Type { get; set; }
-
-        [JsonProperty("id")]
+        [JsonProperty]
         public string Id { get; set; }
+    }
+
+    public class PlayerLinks
+    {
+        [JsonProperty]
+        public string Self { get; set; }
     }
 }
