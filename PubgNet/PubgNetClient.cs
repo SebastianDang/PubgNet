@@ -94,5 +94,13 @@ namespace PubgNet
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.MatchRoot>(response);
             return json_object;
         }
+
+        public async Task<PubgNet.Model.LeaderboardsRoot> GetLeaderboards(string gameMode, int num = 0)
+        {
+            string request = $"shards/{m_Platform}/leaderboards/squad-fpp?page[number]={num}";
+            string response = await m_HttpHandler.RequestAsync(request);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.LeaderboardsRoot>(response);
+            return json_object;
+        }
     }
 }
