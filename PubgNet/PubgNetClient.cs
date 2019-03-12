@@ -95,11 +95,29 @@ namespace PubgNet
             return json_object;
         }
 
+        // Get leaderboard data for game mode.
         public async Task<PubgNet.Model.LeaderboardsRoot> GetLeaderboards(string gameMode, int num = 0)
         {
             string request = $"shards/{m_Platform}/leaderboards/squad-fpp?page[number]={num}";
             string response = await m_HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.LeaderboardsRoot>(response);
+            return json_object;
+        }
+
+        // Get a list of all tournaments
+        public async Task<PubgNet.Model.TournamentsRoot> GetTournaments()
+        {
+            string request = $"tournaments";
+            string response = await m_HttpHandler.RequestAsync(request);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.TournamentsRoot>(response);
+            return json_object;
+        }
+
+        public async Task<PubgNet.Model.TournamentRoot> GetTournament(string id)
+        {
+            string request = $"tournaments/{id}";
+            string response = await m_HttpHandler.RequestAsync(request);
+            var json_object = JsonConvert.DeserializeObject<PubgNet.Model.TournamentRoot>(response);
             return json_object;
         }
     }
