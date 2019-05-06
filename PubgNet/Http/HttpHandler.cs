@@ -22,33 +22,33 @@ namespace PubgNet.Http
     // TOOD: If requests are too large, consider controlling cache using HttpCacheControl
     public class HttpHandler
     {
-        private readonly System.Net.Http.HttpClient m_Client;
-        private bool m_HandleExceptions = true;
+        private readonly System.Net.Http.HttpClient _Client;
+        private bool _HandleExceptions = true; // By default, automatically catch exceptions
 
         // Create a new http client with base url, authentication key, and content type.
         public HttpHandler(string base_url, string auth_key, string content_type)
         {
             // Create a new http client
-            m_Client = new System.Net.Http.HttpClient();
+            _Client = new System.Net.Http.HttpClient();
 
             // Set up http client
-            m_Client.BaseAddress = new Uri(base_url);
-            m_Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth_key);
-            m_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(content_type));
+            _Client.BaseAddress = new Uri(base_url);
+            _Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth_key);
+            _Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(content_type));
 #if DEBUG_HTTP_HANDLER
-            Console.WriteLine($"Http Client Created: {DateTime.Now.ToString("hh:mm:ss")}\nBase Url: {m_Client.BaseAddress}\n{m_Client.DefaultRequestHeaders}");
+            Console.WriteLine($"Http Client Created: {DateTime.Now.ToString("hh:mm:ss")}\nBase Url: {_Client.BaseAddress}\n{_Client.DefaultRequestHeaders}");
 #endif
         }
 
         // Set whether to handle exceptions here or throw. By defalt this is true.
-        public void SetHandleExceptions(bool val) { m_HandleExceptions = val; }
+        public void SetHandleExceptions(bool val) { _HandleExceptions = val; }
 
         // Simple request using the base address and endpoint
         public async Task<string> RequestAsync(string endpoint)
         {
             try
             {
-                HttpResponseMessage http_response = await m_Client.GetAsync(m_Client.BaseAddress + endpoint);
+                HttpResponseMessage http_response = await _Client.GetAsync(_Client.BaseAddress + endpoint);
                 if (http_response.IsSuccessStatusCode)
                 {
                     HttpContent http_content = http_response.Content;
@@ -68,7 +68,7 @@ namespace PubgNet.Http
 #if DEBUG_HTTP_HANDLER
                 Console.WriteLine(e);
 #endif
-                if (!m_HandleExceptions) throw;
+                if (!_HandleExceptions) throw;
             }
             return ""; // Blank
         }
@@ -78,9 +78,9 @@ namespace PubgNet.Http
         {
             switch (response.StatusCode)
             {
-                case System.Net.HttpStatusCode.Unauthorized: return new Exception($"Http Error (401): {m_Client.DefaultRequestHeaders.Authorization}");
+                case System.Net.HttpStatusCode.Unauthorized: return new Exception($"Http Error (401): {_Client.DefaultRequestHeaders.Authorization}");
                 case System.Net.HttpStatusCode.NotFound: return new Exception($"Http Error (404): {endpoint}");
-                case System.Net.HttpStatusCode.UnsupportedMediaType: return new Exception($"Http Error (415): {m_Client.DefaultRequestHeaders.Accept}");
+                case System.Net.HttpStatusCode.UnsupportedMediaType: return new Exception($"Http Error (415): {_Client.DefaultRequestHeaders.Accept}");
                 case (System.Net.HttpStatusCode)429: return new Exception($"Http Error (429): Too many Requests");
                 default: return new Exception($"Http Request Failed: {endpoint}");
             }

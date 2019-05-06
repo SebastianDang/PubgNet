@@ -13,17 +13,19 @@ namespace PubgNet
     public class PubgNetClient
     {
         // Private variables.
-        private readonly HttpHandler m_HttpHandler;
-        private readonly string m_Platform = "steam"; // By default, steam
+        private readonly HttpHandler _HttpHandler;
+        private readonly string _Platform;
 
         // Checks if the api key exists, then constructs a http handler to manage requests.
-        public PubgNetClient(string api_key)
+        public PubgNetClient(string api_key, string platform = "steam") // By default, steam
         {
             if (string.IsNullOrEmpty(api_key)) throw new ArgumentException("Client: Api Key cannot be empty.");
-            m_HttpHandler = new HttpHandler("https://api.pubg.com/", api_key, "application/vnd.api+json");
+            _HttpHandler = new HttpHandler("https://api.pubg.com/", api_key, "application/vnd.api+json");
+            _Platform = platform;
         }
 
         // Gets a list of players by username(s).
+        // Usernames are case sensitive.
         // According to the api, this can only get data for up to 6 players.
         public async Task<PubgNet.Model.PlayersRoot> GetPlayersByUsernames(string[] playerNames)
         {
@@ -35,8 +37,8 @@ namespace PubgNet
             }
 #endif
             string input_playerNames = string.Join(",", playerNames);
-            string request = $"shards/{m_Platform}/players?filter[playerNames]={input_playerNames}";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string request = $"shards/{_Platform}/players?filter[playerNames]={input_playerNames}";
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.PlayersRoot>(response);
             return json_object;
         }
@@ -53,8 +55,8 @@ namespace PubgNet
             }
 #endif
             string input_playerIds = string.Join(",", playerIds);
-            string request = $"shards/{m_Platform}/players?filter[playerIds]={input_playerIds}";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string request = $"shards/{_Platform}/players?filter[playerIds]={input_playerIds}";
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.PlayersRoot>(response);
             return json_object;
         }
@@ -62,8 +64,8 @@ namespace PubgNet
         // Gets a list of all seasons.
         public async Task<PubgNet.Model.SeasonsRoot> GetSeasons()
         {
-            string request = $"shards/{m_Platform}/seasons";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string request = $"shards/{_Platform}/seasons";
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.SeasonsRoot>(response);
             return json_object;
         }
@@ -71,8 +73,8 @@ namespace PubgNet
         // Get seasons stats for a specific player and season.
         public async Task<PubgNet.Model.StatsRoot> GetSeasonStatsForPlayer(string accountId, string seasonId)
         {
-            string request = $"shards/{m_Platform}/players/{accountId}/seasons/{seasonId}";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string request = $"shards/{_Platform}/players/{accountId}/seasons/{seasonId}";
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.StatsRoot>(response);
             return json_object;
         }
@@ -80,8 +82,8 @@ namespace PubgNet
         // Get lifetime stats for a specific player and season.
         public async Task<PubgNet.Model.StatsRoot> GetLifetimeStatsForPlayer(string accountId)
         {
-            string request = $"shards/{m_Platform}/players/{accountId}/seasons/lifetime";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string request = $"shards/{_Platform}/players/{accountId}/seasons/lifetime";
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.StatsRoot>(response);
             return json_object;
         }
@@ -89,8 +91,8 @@ namespace PubgNet
         // Get a single match's data.
         public async Task<PubgNet.Model.MatchRoot> GetMatch(string id)
         {
-            string request = $"shards/{m_Platform}/matches/{id}";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string request = $"shards/{_Platform}/matches/{id}";
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.MatchRoot>(response);
             return json_object;
         }
@@ -98,8 +100,8 @@ namespace PubgNet
         // Get leaderboard data for game mode.
         public async Task<PubgNet.Model.LeaderboardsRoot> GetLeaderboards(string gameMode, int num = 0)
         {
-            string request = $"shards/{m_Platform}/leaderboards/squad-fpp?page[number]={num}";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string request = $"shards/{_Platform}/leaderboards/squad-fpp?page[number]={num}";
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.LeaderboardsRoot>(response);
             return json_object;
         }
@@ -108,15 +110,16 @@ namespace PubgNet
         public async Task<PubgNet.Model.TournamentsRoot> GetTournaments()
         {
             string request = $"tournaments";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.TournamentsRoot>(response);
             return json_object;
         }
 
+        // Get a single tournament's data
         public async Task<PubgNet.Model.TournamentRoot> GetTournament(string id)
         {
             string request = $"tournaments/{id}";
-            string response = await m_HttpHandler.RequestAsync(request);
+            string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.TournamentRoot>(response);
             return json_object;
         }
