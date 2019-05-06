@@ -100,7 +100,7 @@ namespace PubgNet
         // Get leaderboard data for game mode.
         public async Task<PubgNet.Model.LeaderboardsRoot> GetLeaderboards(string gameMode, int num = 0)
         {
-            string request = $"shards/{_Platform}/leaderboards/squad-fpp?page[number]={num}";
+            string request = $"shards/{_Platform}/leaderboards/{gameMode}?page[number]={num}";
             string response = await _HttpHandler.RequestAsync(request);
             var json_object = JsonConvert.DeserializeObject<PubgNet.Model.LeaderboardsRoot>(response);
             return json_object;
